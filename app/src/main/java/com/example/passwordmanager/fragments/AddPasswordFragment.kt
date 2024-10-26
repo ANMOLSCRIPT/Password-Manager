@@ -3,58 +3,86 @@ package com.example.passwordmanager.fragments
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
+import androidx.lifecycle.Lifecycle
+import androidx.navigation.findNavController
+import com.example.passwordmanager.MainActivity
 import com.example.passwordmanager.R
+import com.example.passwordmanager.databinding.FragmentAddPasswordBinding
+import com.example.passwordmanager.model.Password
+import com.example.passwordmanager.viewodel.PasswordViewModel
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+class AddPasswordFragment : Fragment(R.layout.fragment_add_password), MenuProvider {
 
-/**
- * A simple [Fragment] subclass.
- * Use the [AddPasswordFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class AddPasswordFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private var addPasswordBinding: FragmentAddPasswordBinding? = null
+    private val binding get() = addPasswordBinding!!
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private lateinit var passwordsViewModel: PasswordViewModel
+    private lateinit var addPasswordView: View
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add_password, container, false)
+        addPasswordBinding = FragmentAddPasswordBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment AddPasswordFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            AddPasswordFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val menuHost: MenuHost = requireActivity()
+        menuHost.addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.STARTED)
+
+        passwordsViewModel = (activity as? MainActivity)?.passwordViewModel
+            ?: throw IllegalStateException("ViewModel not found")
+        addPasswordView = view
+    }
+
+    private fun savePassword(view: View) {
+        if (addPasswordBinding == null) return
+
+        val website = binding.addPasswordWebsite.text.toString().trim() ?: ""
+        val username = binding.addPasswordUsername.text.toString().trim() ?: ""
+        val pass = binding.addPassword.text.toString().trim() ?: ""
+
+        if (website.isNotEmpty()) {
+            val password = Password(0, website, username, pass)  // Avoid shadowing
+            passwordsViewModel.addPassword(password)
+
+            Toast.makeText(addPasswordView.context, "Password Saved", Toast.LENGTH_SHORT).show()
+            view.findNavController().popBackStack(R.id.homeFragment, false)
+        } else {
+            Toast.makeText(addPasswordView.context, "Please enter website/app", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+        menu.clear()
+        menuInflater.inflate(R.menu.menu_add_password, menu)
+    }
+
+    override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+        return when (menuItem.itemId) {
+            R.id.saveMenu -> {
+                savePassword(addPasswordView)
+                true
             }
+            else -> false
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        addPasswordBinding = null
     }
 }
+

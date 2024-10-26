@@ -38,7 +38,7 @@
             android:layout_height="match_parent"
             android:id="@+id/emptyPasswordsImage"
             android:visibility="gone"
-            android:src=""/>
+            android:text="Add your first password"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -13,7 +13,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var passwordViewModel: PasswordViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_login)
 
         setupViewModel()
     }
