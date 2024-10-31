@@ -43,6 +43,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import com.example.passwordmanager.data.PasswordEntity
 import com.example.passwordmanager.model.MainViewModel
 import com.example.passwordmanager.ui.theme.PinkTheme
@@ -55,7 +56,10 @@ import com.example.passwordmanager.util.PasswordTextField
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen() {
+fun HomeScreen(
+    navController: NavController,
+    viewModel: MainViewModel
+) {
 
     var modelSheetbtn by remember { mutableStateOf(false) }
     var editModelSheetbtn by remember { mutableStateOf(false) }
@@ -128,7 +132,7 @@ fun HomeScreen() {
             }) {
                 CommonTextField(
                     inputext = inputAccountName,
-                    "Account Name",
+                    "Website/App",
                     onChange = { inputAccountName = it })
                 CommonTextField(
                     inputext = inputUserName,
@@ -193,7 +197,7 @@ fun HomeScreen() {
                         fontWeight = FontWeight.ExtraBold
                     )
                     Spacer(modifier = Modifier.padding(10.dp))
-                    CommonInfoBox("Account Name",decryptedAccountName)
+                    CommonInfoBox("Website/App",decryptedAccountName)
                     CommonInfoBox("Username/Email",decryptedUserName)
                     PasswordInfoBox("Password",decryptedPassword)
 

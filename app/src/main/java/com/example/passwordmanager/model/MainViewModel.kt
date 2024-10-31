@@ -32,7 +32,7 @@ class MainViewModel @Inject constructor(private val repository: Repository) : Vi
                 .collect{listOfPassword->
 
                     if(listOfPassword.isNullOrEmpty()){
-                        Log.d("TAG","EmptyLisy")
+                        Log.d("TAG","EmptyList")
                     }else{
                         _passwordList.value = listOfPassword
                     }
