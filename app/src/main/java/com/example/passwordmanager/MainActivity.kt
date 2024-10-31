@@ -1,26 +1,30 @@
 package com.example.passwordmanager
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
-import com.example.passwordmanager.database.PasswordDatabase
-import com.example.passwordmanager.repository.PasswordRepository
-import com.example.passwordmanager.viewodel.PasswordViewModel
-import com.example.passwordmanager.viewodel.PasswordViewModelFactory
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.ui.Modifier
+import com.example.passwordmanager.ui.theme.PasswordManagerTheme
+import dagger.hilt.android.AndroidEntryPoint
 
-class MainActivity : AppCompatActivity() {
 
-    lateinit var passwordViewModel: PasswordViewModel
+@AndroidEntryPoint
+class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
-
-        setupViewModel()
-    }
-
-    private fun setupViewModel(){
-        val passwordRepository = PasswordRepository(PasswordDatabase(this))
-        val viewModelProviderFactory = PasswordViewModelFactory(application, passwordRepository)
-        passwordViewModel = ViewModelProvider(this, viewModelProviderFactory)[PasswordViewModel::class.java]
+        setContent {
+            PasswordManagerTheme {
+                // A surface container using the 'background' color from the theme
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
+                ) {
+                    HomeScreen()
+                }
+            }
+        }
     }
 }
