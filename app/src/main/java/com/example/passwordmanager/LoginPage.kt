@@ -2,10 +2,15 @@ package com.example.passwordmanager
 
 import android.os.Bundle
 import android.widget.Toast
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -21,6 +26,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.passwordmanager.ui.theme.PinkTheme
+import com.example.passwordmanager.ui.theme.Red
 
 
 @Composable
@@ -34,15 +41,16 @@ fun LoginScreen(navController: NavController) {
 
     Column(
         modifier = Modifier
+            .background(Color.White)
             .fillMaxSize()
             .padding(16.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "PASSWORD MANAGER",
+            text = "Password Manager",
             fontSize = 40.sp,
-            fontWeight = FontWeight.Bold,
+            fontWeight = FontWeight.SemiBold,
             color = Color.Black
         )
 
@@ -53,7 +61,7 @@ fun LoginScreen(navController: NavController) {
         OutlinedTextField(
             value = username,
             onValueChange = { username = it },
-            label = { Text("Username") },
+            label = { Text("Enter your Email") },
             modifier = Modifier.fillMaxWidth(),
             singleLine = true
         )
@@ -64,12 +72,24 @@ fun LoginScreen(navController: NavController) {
         OutlinedTextField(
             value = password,
             onValueChange = { password = it },
-            label = { Text("Password") },
+            label = { Text("Enter your Password") },
             visualTransformation = if (passwordVisibility) VisualTransformation.None else PasswordVisualTransformation(),
             trailingIcon = {
-                IconButton(onClick = { passwordVisibility = !passwordVisibility }) {
-                    val iconText = if (passwordVisibility) "Hide" else "Show"
-                    Text(iconText)
+                if (passwordVisibility) {
+                    IconButton(onClick = { passwordVisibility = false }) {
+                        Icon(
+                            imageVector = Icons.Filled.Visibility,
+                            contentDescription = "show"
+                        )
+                    }
+                } else {
+                    IconButton(
+                        onClick = { passwordVisibility = true }) {
+                        Icon(
+                            imageVector = Icons.Filled.VisibilityOff,
+                            contentDescription = "hide"
+                        )
+                    }
                 }
             },
             modifier = Modifier.fillMaxWidth(),
@@ -97,7 +117,7 @@ fun LoginScreen(navController: NavController) {
                         .show()
                 }
             },
-            modifier = Modifier.fillMaxWidth(), colors = ButtonDefaults.buttonColors(Color.Green)
+            modifier = Modifier.fillMaxWidth(), colors = ButtonDefaults.buttonColors(Red)
         ) {
             Text("Login")
         }

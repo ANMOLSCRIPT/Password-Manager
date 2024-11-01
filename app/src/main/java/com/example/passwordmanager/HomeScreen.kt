@@ -1,8 +1,10 @@
 package com.example.passwordmanager
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -47,6 +49,7 @@ import androidx.navigation.NavController
 import com.example.passwordmanager.data.PasswordEntity
 import com.example.passwordmanager.model.MainViewModel
 import com.example.passwordmanager.ui.theme.PinkTheme
+import com.example.passwordmanager.ui.theme.Red
 import com.example.passwordmanager.util.CommonInfoBox
 import com.example.passwordmanager.util.CommonTextBox
 import com.example.passwordmanager.util.CommonTextField
@@ -78,7 +81,6 @@ fun HomeScreen(
     var editinputUserName by remember { mutableStateOf("") }
     var editinputPassword by remember { mutableStateOf("") }
 
-
     Scaffold(
         floatingActionButton = {
             FloatingActionButton(
@@ -88,16 +90,15 @@ fun HomeScreen(
                 containerColor = PinkTheme,
                 onClick = { modelSheetbtn = true }
             ) {
-                Icon(imageVector = Icons.Default.Add, contentDescription = "add password")
+                Icon(imageVector = Icons.Default.Add, contentDescription = "Add Password")
             }
         }, topBar = {
             TopAppBar(title = { Text(text = "Password Manager") })
+
         }
     ) { paddingValues ->
 
-        LazyColumn(
-            modifier = Modifier.padding(paddingValues)
-        ) {
+        LazyColumn(modifier = Modifier.padding(paddingValues)) {
             items(allPassword) { passswords ->
                 CommonTextBox(passswords) {
                     currentPasssword.value = it
@@ -168,11 +169,11 @@ fun HomeScreen(
                         .height(50.dp),
                     shape = MaterialTheme.shapes.extraLarge,
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = Color.Black
+                        containerColor = Red
                     )
                 ) {
                     Text(
-                        text = "Add New Account",
+                        text = "Add New Password",
                         color = Color.White,
                         fontWeight = FontWeight.ExtraBold,
                         fontSize = 20.sp
@@ -193,7 +194,7 @@ fun HomeScreen(
                     Text(
                         text = "Account Details",
                         fontSize = 20.sp,
-                        color = PinkTheme,
+                        color = Color.Black,
                         fontWeight = FontWeight.ExtraBold
                     )
                     Spacer(modifier = Modifier.padding(10.dp))
@@ -336,8 +337,5 @@ fun HomeScreen(
             )
         }
 
-
-
     }
-
 }
