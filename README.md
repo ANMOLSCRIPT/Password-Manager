@@ -25,6 +25,8 @@ backend service).
 <img width="254" alt="image" src="https://github.com/user-attachments/assets/8a3d4c7b-f8ff-4ef7-b5e2-7bd4df98ae3e">
 <img width="253" alt="image" src="https://github.com/user-attachments/assets/74f1b704-1fdd-4763-b9e9-9eeb8fc3af16">
 
+# App Video:
+https://www.canva.com/design/DAGVNnVweY8/-ShaWBHTO2uCambfLL4Gxw/watch?utm_content=DAGVNnVweY8&utm_campaign=designshare&utm_medium=link&utm_source=editor
 
 # Tech Stack:
 
