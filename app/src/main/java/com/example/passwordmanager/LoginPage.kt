@@ -127,9 +127,9 @@ fun LoginScreen(navController: NavController) {
                         .show()
                 }
             },
-            modifier = Modifier.fillMaxWidth(), colors = ButtonDefaults.buttonColors(Red)
+            modifier = Modifier.fillMaxWidth(), colors = ButtonDefaults.buttonColors(PinkTheme)
         ) {
-            Text("Login")
+            Text("Login", fontWeight = FontWeight.SemiBold)
         }
     }
 }
