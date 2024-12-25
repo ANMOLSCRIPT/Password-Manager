@@ -14,6 +14,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextFieldColors
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -23,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -48,8 +50,14 @@ fun LoginScreen(navController: NavController) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "Password Manager",
-            fontSize = 40.sp,
+            text = "Password",
+            fontSize = 50.sp,
+            fontWeight = FontWeight.SemiBold,
+            color = Color.Black
+        )
+        Text(
+            text = "Manager",
+            fontSize = 50.sp,
             fontWeight = FontWeight.SemiBold,
             color = Color.Black
         )
@@ -63,7 +71,8 @@ fun LoginScreen(navController: NavController) {
             onValueChange = { username = it },
             label = { Text("Enter your Email") },
             modifier = Modifier.fillMaxWidth(),
-            singleLine = true
+            singleLine = true,
+            textStyle = TextStyle(color = Color.Black)
         )
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -73,6 +82,7 @@ fun LoginScreen(navController: NavController) {
             value = password,
             onValueChange = { password = it },
             label = { Text("Enter your Password") },
+            textStyle = TextStyle(color = Color.Black),
             visualTransformation = if (passwordVisibility) VisualTransformation.None else PasswordVisualTransformation(),
             trailingIcon = {
                 if (passwordVisibility) {
