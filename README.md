@@ -1,8 +1,7 @@
-# GDSC App Dev Task Round 2
-This project is developed as part of the Round 2 for the recruitment in GDSC App Dev Team. 
+# Password Manager
 This is a functional password manager app where users can save the username and password for different Websites/Apps, in this app.<br>
 
-## Developed by: Anmol Garg (2023UIC3667)
+## Developed by: Anmol Garg
 
 ## Key Features:
 1. **User Authentication Screen:**<br>
